@@ -32,8 +32,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // set savedBooks to be an array of data that adheres to the bookSchema
-    savedOffers: [offerSchema],
+    // set savedOffers to be an array of data that adheres to the bookSchema
+    savedOffers: [{ type: Schema.Types.ObjectId, ref: 'offer' }]
   },
   // Virtual needed for hashing user password below
   {
