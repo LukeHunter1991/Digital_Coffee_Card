@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 // This is a subdocument schema for the offers. It is used as the schema for the User's 'savedOffers' array.
 const offerSchema = new Schema({
@@ -16,4 +16,6 @@ const offerSchema = new Schema({
     }
 })
 
-module.exports = offerSchema
+const Offer = model('offer', offerSchema);
+
+module.exports = Offer;
