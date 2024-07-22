@@ -27,6 +27,11 @@ const userSchema = new Schema(
         type: Boolean,
         required: true,
       },
+    // Postcode to show relevant offers if specific location data not enabled
+    postcode: {
+      type: String,
+      required: true,
+    },
     // set savedBooks to be an array of data that adheres to the bookSchema
     savedOffers: [offerSchema],
   },
