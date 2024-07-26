@@ -27,7 +27,15 @@ const userSchema = new Schema(
     },
     // set savedOffers to be an array of data that adheres to the bookSchema
     savedOffers: [{ type: Schema.Types.ObjectId, ref: 'offer' }],
-    visits: [
+    currentCards: [
+      {
+        businessId: { type: Schema.Types.ObjectId, ref: 'business' },
+        visitCount: { type: Number },
+        businessName: { type: String },
+        stampsRequired: { type: Number }
+      }
+    ],
+    completedCards: [
       {
         businessId: { type: Schema.Types.ObjectId, ref: 'business' },
         visitCount: { type: Number },

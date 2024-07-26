@@ -201,12 +201,12 @@ const resolvers = {
           }
         }
         // find index returns the index if an element matches the scanned.
-        const updatedEL = user.visits.findIndex(findId)
+        const updatedEL = user.currentCards.findIndex(findId)
 
         // the findIndex method returns -1 if not found
         if (updatedEL < 0) {
           // If businessId not already in array, push new object with business data.
-          user.visits.push({
+          user.currentCards.push({
             businessId: scannedId,
             visitCount: 1,
             businessName: business.businessName,
@@ -214,7 +214,13 @@ const resolvers = {
           })
         } else {
           // If businessId already in the array add 1 visit.
-          user.visits[updatedEL].visitCount++
+          user.currentCards[updatedEL].visitCount++;
+
+          // If card is not complete, remove from 
+          if (user.currentCards[updatedEL].visitCount === user.currentCards[updatedEL].stampsRequired) {
+            const completeCard = user.currentCards.splice(updatedEL, 1);
+            user.completedCards.push(...completeCard);
+          }
         }
 
         await user.save();
@@ -224,9 +230,8 @@ const resolvers = {
         throw AuthenticationError;
       }
     },
-    // TO DO: Delete card route, will use when 'redeem card' button on front end is used.
-  },
-
+    // TO DO: Delete card route
+   }
 };
 
 module.exports = resolvers;

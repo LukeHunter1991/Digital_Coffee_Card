@@ -20,7 +20,8 @@ const typeDefs = `
         password: String!
         postcode: String!
         savedOffers: [ID]!
-        visits: [Card]!
+        currentCards: [Card]!
+        completedCards: [Card]!
     }
 
     type Business {
