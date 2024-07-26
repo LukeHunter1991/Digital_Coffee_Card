@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 // set token secret and expiration date
 const secret = process.env.SECRET;
-const expiration = '2h';
+const expiration = '24h';
 
 module.exports = {
   // Added GraphQL Authentication Error object
@@ -35,14 +35,14 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log('Invalid token');
+     console.log('Invalid token');
     }
     return req;
     
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
-
+    console.log(token)
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

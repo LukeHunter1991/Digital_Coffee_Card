@@ -3,7 +3,14 @@ const typeDefs = `
         _id: ID!
         description: String!
         offerType: String!
-        stamps: Int!
+        discount: String!
+    }
+
+    type Card {
+    businessId: ID!
+    visitCount: Int!
+    businessName: String
+    stampsRequired: Int
     }
     
     type User {
@@ -11,9 +18,19 @@ const typeDefs = `
         username: String!
         email: String!
         password: String!
-        business: Boolean!
         postcode: String!
-        savedOffers: [ID!]
+        savedOffers: [ID]!
+        visits: [Card]!
+    }
+
+    type Business {
+        _id: ID!
+        businessName: String!
+        email: String!
+        password: String!
+        postcode: String!
+        stampsRequired: Int!
+        Offers: [ID]!
     }
 
     type Auth {
@@ -21,17 +38,28 @@ const typeDefs = `
     user: User
     }
 
+    type businessAuth {
+    token: String!
+    business: Business
+    }
+
+
     type Query {
+    business: [Business]
     offer: [Offer]
     user: [User]
     me: User
+    businessMe: Business
     }
 
     type Mutation {
-    createUser(username: String!, email: String!, password: String!, business: Boolean!, postcode: String!): Auth
+    createUser(username: String!, email: String!, password: String!, postcode: String!): Auth
     saveOffer(offerId: ID!): User
     deleteOffer(offerId: ID!): User
     login(email: String!, password: String!): Auth
+    createBusiness(businessName: String!, email: String!, password: String!, postcode: String!, stampsRequired: Int!): businessAuth
+    businessLogin(email: String!, password: String!): businessAuth
+    addStamp(scannedId: String!): User
 }
 `
 
