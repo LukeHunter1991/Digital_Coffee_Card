@@ -2,9 +2,9 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
-const userSchema = new Schema(
+const businessSchema = new Schema(
   {
-    username: {
+    businessName: {
       type: String,
       required: true,
       unique: true,
@@ -25,18 +25,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    stampsRequired: {
+        type: Number,
+        default: 8
+    },
     // set savedOffers to be an array of data that adheres to the bookSchema
-    savedOffers: [{ type: Schema.Types.ObjectId, ref: 'offer' }],
-    visits: [
-      {
-        businessId: { type: Schema.Types.ObjectId, ref: 'business' },
-        visitCount: { type: Number },
-        businessName: { type: String },
-        stampsRequired: { type: Number }
-      }
-    ]
+    Offers: [{ type: Schema.Types.ObjectId, ref: 'offer' }],
+
   },
-  // Virtual needed for hashing user password below
+  // Virtual needed for hashing business password below
   {
     toJSON: {
       virtuals: true,
@@ -44,8 +41,8 @@ const userSchema = new Schema(
   }
 );
 
-// Virtual for hashing user password when new password created.
-userSchema.pre('save', async function (next) {
+// Virtual for hashing business password when new password created.
+businessSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -54,16 +51,16 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Validates password when user attempts log in
-userSchema.methods.isCorrectPassword = async function (password) {
+// Validates password when business attempts log in
+businessSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `offerCount` with the number of offers they currently have saved
-userSchema.virtual('offerCount').get(function () {
-  return this.savedOffers.length;
+// when we query a business, we'll also get another field called `offerCount` with the number of offers they currently have saved
+businessSchema.virtual('offerCount').get(function () {
+  return this.Offers.length;
 });
 
-const User = model('user', userSchema);
+const Business = model('business', businessSchema);
 
-module.exports = User;
+module.exports = Business;
