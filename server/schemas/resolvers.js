@@ -130,11 +130,12 @@ const resolvers = {
             }
             return updatedUser;
           },
-          // TO DO: Business paths
+          // Business paths
           createBusiness: async (parent, {businessName, email, password, postcode, stampsRequired }, context) => {
             // Create new business
             try {
               const business = await Business.create({businessName, email, password, postcode, stampsRequired});
+
               // If no business variable, create method failed, throw error.
               if (!business) {
                 throw AuthenticationError;
@@ -146,6 +147,7 @@ const resolvers = {
               return { token, business };
               // If signToken fails, throw error.
             } catch (error) {
+              console.log(error)
               throw AuthenticationError;
             }
           },

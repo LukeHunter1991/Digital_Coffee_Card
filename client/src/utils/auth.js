@@ -32,11 +32,18 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
-  login(idToken) {
+  userLogin(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    window.location.assign('/user');
   }
+
+  businessLogin(idToken) {
+    // Saves user token to localStorage
+    localStorage.setItem('id_token', idToken);
+    window.location.assign('/business');
+  }
+
 
   logout() {
     // Clear user token and profile data from localStorage

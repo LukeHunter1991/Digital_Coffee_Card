@@ -5,7 +5,7 @@ import App from './App.jsx'
 
 // Import pages
 import UserHomePage from './components/pages/UserHomePage.jsx';
-
+import BusinessHomePage from './components/pages/BusinessHomePage.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,11 +16,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <UserHomePage />
+      },
+      {
+        path: '/user',
+        element: <UserHomePage />
+      },
+      {
+        path: '/business',
+        element: <BusinessHomePage />
       }
-      // {
-      //   path: '/saved',
-      //   element: <SavedBooks />
-      // }
     ]
   }
 ])
