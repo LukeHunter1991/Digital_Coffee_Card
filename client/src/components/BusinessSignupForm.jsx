@@ -3,22 +3,22 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import Auth from '../utils/auth';
 
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
+import { ADD_BUSINESS_USER } from '../utils/mutations';
 
 
-const SignupForm = () => {
+const BusinessSignupForm = () => {
   // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '', postcode: '' });
+  const [businessFormData, setBusinessFormData] = useState({ businessName: '', email: '', password: '', postcode: '', stampsRequired: '' });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [signup] = useMutation(ADD_USER);
+  const [businessSignup] = useMutation(ADD_BUSINESS_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+    setBusinessFormData({ ...businessFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
@@ -30,28 +30,34 @@ const SignupForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+    console.log(businessFormData)
 
     try {
-      const { data } = await signup({
+      // Convert input to int
+      businessFormData.stampsRequired = parseInt(businessFormData.stampsRequired);
+      const { data } = await businessSignup({
         variables: {
-          ...userFormData
+          ...businessFormData
         }
       });
+      console.log(data)
 
       if (!data) {
         throw new Error('something went wrong!');
       }
 
-      Auth.login(data.createUser.token);
+      Auth.businessLogin(data.createBusiness.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
 
-    setUserFormData({
-      username: '',
+    setBusinessFormData({
+      businessName: '',
       email: '',
       password: '',
+      postcode: '',
+      stampsRequired: ''
     });
   };
 
@@ -65,16 +71,16 @@ const SignupForm = () => {
         </Alert>
 
         <Form.Group className='mb-3'>
-          <Form.Label htmlFor='username'>Username</Form.Label>
+          <Form.Label htmlFor='businessName'>Business Name</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Your username'
-            name='username'
+            placeholder='Your business name'
+            name='businessName'
             onChange={handleInputChange}
-            value={userFormData.username}
+            value={businessFormData.businessName}
             required
           />
-          <Form.Control.Feedback type='invalid'>Username is required!</Form.Control.Feedback>
+          <Form.Control.Feedback type='invalid'>Business Name is required!</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className='mb-3'>
@@ -84,7 +90,7 @@ const SignupForm = () => {
             placeholder='Your email address'
             name='email'
             onChange={handleInputChange}
-            value={userFormData.email}
+            value={businessFormData.email}
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
@@ -97,7 +103,7 @@ const SignupForm = () => {
             placeholder='Your password'
             name='password'
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={businessFormData.password}
             required
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
@@ -109,20 +115,34 @@ const SignupForm = () => {
             placeholder='Your postcode'
             name='postcode'
             onChange={handleInputChange}
-            value={userFormData.postcode}
+            value={businessFormData.postcode}
             required
           />
         <Form.Control.Feedback type='invalid'>Postcode is required!</Form.Control.Feedback>
         </Form.Group>
-        <Button
-          disabled={!(userFormData.username && userFormData.email && userFormData.password && userFormData.postcode)}
-          type='submit'
-          variant='success'>
-          Submit
-        </Button>
+    
+        <Form.Group className='mb-3'>
+          <Form.Label htmlFor='stampsRequired'>Stamps Required</Form.Label>
+          <Form.Control
+            type='number'
+            placeholder='How many stamps should your card require?'
+            name='stampsRequired'
+            onChange={handleInputChange}
+            value={businessFormData.stampsRequired}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>A stamp amount is required!</Form.Control.Feedback>
+        </Form.Group>
+          <Button
+            href="/business"
+            disabled={!(businessFormData.businessName && businessFormData.email && businessFormData.password && businessFormData.postcode)}
+            type='submit'
+            variant='success'>
+            Submit
+          </Button>
       </Form>
     </>
   );
 };
 
-export default SignupForm;
+export default BusinessSignupForm;

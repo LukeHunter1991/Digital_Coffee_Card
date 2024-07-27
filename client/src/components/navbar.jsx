@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
-import SignUpForm from './SignupForm';
-import LoginForm from './LoginForm';
+import UserSignUpForm from './UserSignupForm';
+import UserLoginForm from './UserLoginForm';
+import BusinessSignUpForm from './BusinessSignupForm'
+import BusinessLoginForm from './BusinessLoginForm'
 
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
   // set modal display state
-  const [showModal, setShowModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [showBusinessModal, setShowBusinessModal] = useState(false);
 
   return (
     <>
@@ -20,34 +23,41 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
             <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/'>
-                Search For Books
-              </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
+              {/* if user is logged in show user/business Nav links and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/saved'>
-                    See Your Books
+                {/* Use url to determine if user or busienss Nav items should be shown */}
+                  {window.location.pathname.startsWith('/user') ? (
+                  <Nav.Link as={Link} to='/'>
+                    User route
+                  </Nav.Link> ) : (
+                    <Nav.Link as={Link} to='/'>
+                    Business route
                   </Nav.Link>
+                  )
+                }
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <>
+                <Nav.Link onClick={() => setShowUserModal(true)}>Customer Login/Sign Up</Nav.Link>
+                <Nav.Link onClick={() => setShowBusinessModal(true)}>Business Login/Sign Up</Nav.Link>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* set modal data up */}
+      {/* set customer modal data up */}
       <Modal
         size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
+        show={showUserModal}
+        onHide={() => setShowUserModal(false)}
+        aria-labelledby='user-signup-modal'>
         {/* tab container to do either signup or login component */}
         <Tab.Container defaultActiveKey='login'>
           <Modal.Header closeButton>
-            <Modal.Title id='signup-modal'>
+            <Modal.Title id='user-signup-modal'>
               <Nav variant='pills'>
                 <Nav.Item>
                   <Nav.Link eventKey='login'>Login</Nav.Link>
@@ -61,10 +71,42 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <UserLoginForm handleModalClose={() => setShowUserModal(false)} />
               </Tab.Pane>
               <Tab.Pane eventKey='signup'>
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <UserSignUpForm handleModalClose={() => setShowUserModal(false)} />
+              </Tab.Pane>
+            </Tab.Content>
+          </Modal.Body>
+        </Tab.Container>
+      </Modal>
+       {/* set business modal data up */}
+       <Modal
+        size='lg'
+        show={showBusinessModal}
+        onHide={() => setShowBusinessModal(false)}
+        aria-labelledby='busines-signup-modal'>
+        {/* tab container to do either signup or login component */}
+        <Tab.Container defaultActiveKey='login'>
+          <Modal.Header closeButton>
+            <Modal.Title id='business-signup-modal'>
+              <Nav variant='pills'>
+                <Nav.Item>
+                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tab.Content>
+              <Tab.Pane eventKey='login'>
+                <BusinessLoginForm handleModalClose={() => setShowBusinessModal(false)} />
+              </Tab.Pane>
+              <Tab.Pane eventKey='signup'>
+                <BusinessSignUpForm handleModalClose={() => setShowBusinessModal(false)} />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>

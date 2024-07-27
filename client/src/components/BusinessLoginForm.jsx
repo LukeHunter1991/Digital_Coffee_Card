@@ -2,21 +2,21 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
-// import { useMutation } from '@apollo/client';
-// import { LOGIN_USER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { BUSINESS_LOGIN } from '../utils/mutations';
 
-const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+const BusinessLoginForm = () => {
+  const [businessFormData, setBusinessFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  // const [login] = useMutation(LOGIN_USER);
+  const [businessLogin] = useMutation(BUSINESS_LOGIN);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+    setBusinessFormData({ ...businessFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
@@ -29,19 +29,18 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
-    // try {
-    //   const { data } = await login({
-    //     variables: { ...userFormData },
-    //   });
+    try {
+      const { data } = await businessLogin({
+        variables: { ...businessFormData },
+      });
+      console.log(data);
+      Auth.businessLogin(data.businessLogin.token);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
 
-    //   Auth.login(data.login.token);
-    // } catch (err) {
-    //   console.error(err);
-    //   setShowAlert(true);
-    // }
-
-    setUserFormData({
-      username: '',
+    setBusinessFormData({
       email: '',
       password: '',
     });
@@ -60,7 +59,7 @@ const LoginForm = () => {
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
-            value={userFormData.email}
+            value={businessFormData.email}
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
@@ -73,13 +72,13 @@ const LoginForm = () => {
             placeholder='Your password'
             name='password'
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={businessFormData.password}
             required
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
         <Button
-          disabled={!(userFormData.email && userFormData.password)}
+          disabled={!(businessFormData.email && businessFormData.password)}
           type='submit'
           variant='success'>
           Submit
@@ -89,4 +88,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default BusinessLoginForm;
