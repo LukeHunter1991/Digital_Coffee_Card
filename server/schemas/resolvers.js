@@ -69,6 +69,7 @@ const resolvers = {
               return { token, user };
               // If signToken fails, throw error.
             } catch (error) {
+              console.log(error);
               throw AuthenticationError;
             }
           },
