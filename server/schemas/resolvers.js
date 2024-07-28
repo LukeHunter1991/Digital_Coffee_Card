@@ -233,7 +233,23 @@ const resolvers = {
         throw AuthenticationError;
       }
     },
-    // TO DO: Delete card route
+    redeemCard: async (parent, { businessId }, context) => {
+      // Search current user based on id in context variable from auth.js middleware.
+
+      console.log(businessId)
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        // Remove card from this users completedCards array
+        { $pull: { completedCards: { businessId: businessId } } },
+        // Return updated user details
+        { new: true }
+      );
+      if (!updatedUser) {
+          throw AuthenticationError;
+      }
+      return updatedUser;
+    }
+
    }
 };
 

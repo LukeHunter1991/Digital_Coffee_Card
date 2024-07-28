@@ -84,3 +84,26 @@ export const BUSINESS_LOGIN = gql`
   }
 }
 `
+
+export const REDEEM_CARD = gql`
+mutation redeemCard($businessId: String!) {
+  redeemCard(businessId: $businessId) {
+    _id
+    completedCards {
+      businessId
+      businessName
+      stampsRequired
+      visitCount
+    }
+    currentCards {
+      businessId
+      businessName
+      stampsRequired
+      visitCount
+    }
+    email
+    postcode
+    username
+  }
+}
+`

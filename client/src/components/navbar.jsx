@@ -20,17 +20,21 @@ const AppNavbar = () => {
           <Navbar.Brand as={Link} to='/'>
             Digital Coffee Card
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
             <Nav className='ml-auto d-flex'>
               {/* if user is logged in show user/business Nav links and logout */}
               {Auth.loggedIn() ? (
                 <>
                 {/* Use url to determine if user or busienss Nav items should be shown */}
                   {window.location.pathname.startsWith('/user') ? (
-                  <Nav.Link as={Link} to='/'>
-                    User route
-                  </Nav.Link> ) : (
+                    <>
+                      <Nav.Link as={Link} to='/user/current-cards'>
+                        My Current Cards
+                      </Nav.Link>
+                      <Nav.Link as={Link} to='/user/completed-cards'>
+                      My Completed Cards
+                    </Nav.Link> 
+                  </>
+                  ) : (
                     <Nav.Link as={Link} to='/'>
                     Business route
                   </Nav.Link>
@@ -45,7 +49,6 @@ const AppNavbar = () => {
                 </>
               )}
             </Nav>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
       {/* set customer modal data up */}

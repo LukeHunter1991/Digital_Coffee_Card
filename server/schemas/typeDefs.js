@@ -61,6 +61,7 @@ const typeDefs = `
     createBusiness(businessName: String!, email: String!, password: String!, postcode: String!, stampsRequired: Int!): businessAuth
     businessLogin(email: String!, password: String!): businessAuth
     addStamp(scannedId: String!): User
+    redeemCard(businessId: String!): User
 }
 `
 
