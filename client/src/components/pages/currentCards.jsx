@@ -17,6 +17,7 @@ function CurrentCards() {
         return(<h1>{error}</h1>)
     }
 
+
     return(
         <>
         <h1>Current Cards</h1>

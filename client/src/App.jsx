@@ -41,7 +41,6 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      {/* Add components */}
       <NavBar />
       <Outlet />
     </ApolloProvider>
