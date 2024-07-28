@@ -35,8 +35,8 @@ const AppNavbar = () => {
                     </Nav.Link> 
                   </>
                   ) : (
-                    <Nav.Link as={Link} to='/'>
-                    Business route
+                    <Nav.Link as={Link} to='/business/stamp'>
+                    Stamp Card
                   </Nav.Link>
                   )
                 }

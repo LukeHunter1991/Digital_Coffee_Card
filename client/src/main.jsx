@@ -7,6 +7,8 @@ import UserHomePage from './components/pages/UserHomePage.jsx';
 import BusinessHomePage from './components/pages/BusinessHomePage.jsx'
 import CurrentCards from './components/pages/CurrentCards.jsx';
 import CompletedCards from './components/pages/CompletedCards.jsx';
+import QRCodePage from './components/pages/QRCode.jsx';
+import StampCard from './components/pages/StampCard.jsx'; 
 
 const router = createBrowserRouter([
   {
@@ -32,8 +34,16 @@ const router = createBrowserRouter([
         element: <CompletedCards />
       },
       {
+        path: '/user/stamp-card/:scannedId',
+        element: <StampCard />
+      },
+      {
         path: '/business',
         element: <BusinessHomePage />
+      },
+      {
+        path: '/business/stamp',
+        element: <QRCodePage />
       }
     ]
   }

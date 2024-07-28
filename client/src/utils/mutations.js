@@ -107,3 +107,27 @@ mutation redeemCard($businessId: String!) {
   }
 }
 `
+
+export const ADD_STAMP = gql`
+    mutation addStamp($scannedId: String!) {
+        addStamp(scannedId: $scannedId) {
+            _id
+            email
+            postcode
+            savedOffers
+            username
+            currentCards{
+            businessId
+            visitCount
+            businessName
+            stampsRequired
+            }
+            completedCards {
+            businessId
+            visitCount
+            businessName
+            stampsRequired
+            }
+        }
+    }
+`
