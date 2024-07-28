@@ -23,3 +23,16 @@ export const GET_ME = gql`
         }
     }
 `
+
+export const BUSINESS_ME = gql`
+    query businessMe {
+        businessMe {
+            Offers
+            _id
+            businessName
+            email
+            postcode
+            stampsRequired
+        }
+    }
+`

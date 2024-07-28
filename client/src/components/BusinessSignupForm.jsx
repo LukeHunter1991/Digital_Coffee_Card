@@ -134,7 +134,6 @@ const BusinessSignupForm = () => {
           <Form.Control.Feedback type='invalid'>A stamp amount is required!</Form.Control.Feedback>
         </Form.Group>
           <Button
-            href="/business"
             disabled={!(businessFormData.businessName && businessFormData.email && businessFormData.password && businessFormData.postcode)}
             type='submit'
             variant='success'>
