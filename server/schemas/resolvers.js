@@ -35,12 +35,11 @@ const resolvers = {
       },
       businessMe: async (parent, args, context) => {
         try {
-          console.log("This is the context -", context.user);
             // Search current business based on id in context variable from auth.js middleware.
             const foundBusiness = await Business.findOne({
             _id: context.user._id
             });
-            console.log(foundBusiness);
+
             // If no business found, throw error.
             if (!foundBusiness) {
             throw AuthenticationError;
@@ -48,7 +47,6 @@ const resolvers = {
             // Return business details for current business.
             return foundBusiness;
         } catch (error) {
-          console.log(error);
             throw AuthenticationError;
         }
     },
@@ -69,7 +67,6 @@ const resolvers = {
               return { token, user };
               // If signToken fails, throw error.
             } catch (error) {
-              console.log(error);
               throw AuthenticationError;
             }
           },
@@ -147,7 +144,6 @@ const resolvers = {
               return { token, business };
               // If signToken fails, throw error.
             } catch (error) {
-              console.log(error)
               throw AuthenticationError;
             }
           },
@@ -236,7 +232,6 @@ const resolvers = {
     redeemCard: async (parent, { businessId }, context) => {
       // Search current user based on id in context variable from auth.js middleware.
 
-      console.log(businessId)
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
         // Remove card from this users completedCards array

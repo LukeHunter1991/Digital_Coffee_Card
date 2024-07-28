@@ -13,7 +13,7 @@ function CompletedCards() {
     }
 
     if (error) {
-        return(<h1>{error}</h1>)
+        return(<h1>Sorry! Something went wrong...</h1>)
     }
 
     return(
