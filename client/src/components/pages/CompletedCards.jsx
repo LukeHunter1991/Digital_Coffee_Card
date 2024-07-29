@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import Auth from '../../utils/auth';
+
 function CompletedCards() {
     const { loading, error, data} = useQuery(GET_ME);
 
@@ -16,9 +18,21 @@ function CompletedCards() {
         return(<h1>Sorry! Something went wrong...</h1>)
     }
 
+    if (!Auth.loggedIn) {
+        return (
+            <h1>Please log in to continue</h1>
+        )
+    }
+
+    let completedCardHeader = 'These cards are ready to redeem!'
+
+    if (data.me.currentCards.length === 0) {
+        completedCardHeader = 'You dont have any cards that are ready to redeem yet...'
+    } 
+
     return(
         <>
-        <h1>Ready to Redeem</h1>
+        <h1>{completedCardHeader}</h1>
         <Container fluid>
             <Row>
                 <Col>

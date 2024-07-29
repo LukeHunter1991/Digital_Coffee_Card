@@ -7,7 +7,14 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+import { Alert } from 'react-bootstrap';
+
+import { useState } from 'react';
+import './CoffeeCard.css';
+
 export default function CoffeeCard(props) {
+
+    const [isShaking, setShaking] = useState(false);
 
     let visits = []
     let stampsNeeded = []
@@ -29,22 +36,33 @@ export default function CoffeeCard(props) {
         event.preventDefault();
 
         const businessId = event.target.id;
+
+            // Trigger animation by setting the state
+            setShaking(true);
+
+        // Remove card and reset animation after a delay
+        setTimeout(()=>{redeemCardAnimate(businessId)}, 1000);
+        };  
         
-        try {
-            await redeem({
-                variables: {businessId},
-              });
-
-              location.reload()
-
-        } catch (err) {
-            console.log(err);
+        async function redeemCardAnimate(businessId) {
+            try {
+            
+                await redeem({
+                    variables: {businessId},
+                  });
+    
+                setShaking(false);
+            } catch (err) {
+                console.log(err);
+             <Alert>Sorry! Something went wrong, please try again.</Alert>
+            }
+            
         }
 
-    }
+
     
     return (
-    <Card>
+    <Card   className={isShaking ? 'shake' : ''}>
         <Card.Body>
             <Card.Title>{props.businessName}</Card.Title>
             <Container>
@@ -72,4 +90,5 @@ export default function CoffeeCard(props) {
             </Card.Body>
         </Card>
     )
+
 }

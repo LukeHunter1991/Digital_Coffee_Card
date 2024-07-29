@@ -27,7 +27,9 @@ const businessSchema = new Schema(
     },
     stampsRequired: {
         type: Number,
-        default: 8
+        default: 8,
+        min: 2,
+        max: 12
     },
     // set savedOffers to be an array of data that adheres to the bookSchema
     Offers: [{ type: Schema.Types.ObjectId, ref: 'offer' }],

@@ -125,16 +125,16 @@ const BusinessSignupForm = () => {
           <Form.Label htmlFor='stampsRequired'>Stamps Required</Form.Label>
           <Form.Control
             type='number'
-            placeholder='How many stamps should your card require?'
+            placeholder='How many stamps should your card require? Must be between 2 and 12.'
             name='stampsRequired'
             onChange={handleInputChange}
             value={businessFormData.stampsRequired}
             required
           />
-          <Form.Control.Feedback type='invalid'>A stamp amount is required!</Form.Control.Feedback>
+          <Form.Control.Feedback type='invalid'>A stamp amount between 2 and 12 is required!</Form.Control.Feedback>
         </Form.Group>
           <Button
-            disabled={!(businessFormData.businessName && businessFormData.email && businessFormData.password && businessFormData.postcode)}
+            disabled={!(businessFormData.businessName && businessFormData.email && businessFormData.password && businessFormData.postcode && businessFormData.stampsRequired > 1 && businessFormData.stampsRequired < 13 )}
             type='submit'
             variant='success'>
             Submit
