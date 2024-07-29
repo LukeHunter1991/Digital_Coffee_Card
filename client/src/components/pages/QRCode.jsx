@@ -1,7 +1,7 @@
 import QRCode from "react-qr-code";
 import { useQuery } from "@apollo/client";
 import { BUSINESS_ME } from "../../utils/queries";
-
+import Auth from "../../utils/auth";
 
 function QRCodePage () {
     
@@ -21,6 +21,12 @@ function QRCodePage () {
 
     if (error) {
         return(<h1>Sorry! Something went wrong...</h1>)
+    }
+
+    if (!Auth.loggedIn) {
+        return (
+            <h1>Please log in to continue</h1>
+        )
     }
 
     return(

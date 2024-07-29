@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 
 // set token secret and expiration date
 const secret = process.env.SECRET;
-const expiration = '24h';
+// Force log in every 28 days
+const expiration = '672h';
 
 module.exports = {
   // Added GraphQL Authentication Error object

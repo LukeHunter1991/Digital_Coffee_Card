@@ -17,8 +17,8 @@ const AppNavbar = () => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Digital Coffee Card
+          <Navbar.Brand>
+           ☕ Digital Coffee Card
           </Navbar.Brand>
             <Nav className='ml-auto d-flex'>
               {/* if user is logged in show user/business Nav links and logout */}
@@ -33,11 +33,19 @@ const AppNavbar = () => {
                       <Nav.Link as={Link} to='/user/completed-cards'>
                       My Completed Cards
                     </Nav.Link> 
+                    <Nav.Link as={Link} to='/user'>
+                      Home
+                    </Nav.Link> 
                   </>
                   ) : (
-                    <Nav.Link as={Link} to='/business/stamp'>
-                    Stamp Card
-                  </Nav.Link>
+                    <>
+                      <Nav.Link as={Link} to='/business/stamp'>
+                      Stamp Card
+                      </Nav.Link>
+                        <Nav.Link as={Link} to='/business'>
+                        Home
+                      </Nav.Link>
+                    </>
                   )
                 }
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>

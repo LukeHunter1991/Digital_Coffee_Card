@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
 
 // Import pages
+import HomePage from './components/pages/HomePage.jsx';
 import UserHomePage from './components/pages/UserHomePage.jsx';
 import BusinessHomePage from './components/pages/BusinessHomePage.jsx'
 import CurrentCards from './components/pages/CurrentCards.jsx';
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       // TO DO: Add elements
       {
         index: true,
-        element: <UserHomePage />
+        element: <HomePage />
       },
       {
         path: '/user',
