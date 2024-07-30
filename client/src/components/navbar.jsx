@@ -15,26 +15,26 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar bg='dark' variant='dark' expand='lg' className="display-6">
         <Container fluid>
-          <Navbar.Brand>
-           ☕ Digital Coffee Card
+          <Navbar.Brand >
+           <h1 className="display-6"> ☕ Digital Coffee Card </h1>
           </Navbar.Brand>
-            <Nav className='ml-auto d-flex'>
+            <Nav className='ml-auto d-flex mx-4'>
               {/* if user is logged in show user/business Nav links and logout */}
               {Auth.loggedIn() ? (
                 <>
                 {/* Use url to determine if user or busienss Nav items should be shown */}
                   {window.location.pathname.startsWith('/user') ? (
                     <>
-                      <Nav.Link as={Link} to='/user/current-cards'>
-                        My Current Cards
+                      <Nav.Link as={Link} to='/user/current-cards' >
+                        My Current Cards |
                       </Nav.Link>
                       <Nav.Link as={Link} to='/user/completed-cards'>
-                      My Completed Cards
+                      My Completed Cards |
                     </Nav.Link> 
                     <Nav.Link as={Link} to='/user'>
-                      Home
+                      Home |
                     </Nav.Link> 
                   </>
                   ) : (

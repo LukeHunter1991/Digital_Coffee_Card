@@ -30,17 +30,17 @@ function CurrentCards() {
     } 
     return(
         <>
-        <h1>{currentCardHeader}</h1>
-        <Container fluid >
-            <Row>
-                <Col >
-                {data.me.currentCards.map((card, index)=>(
-                    <CoffeeCard key={index} businessId={card.businessId} businessName={card.businessName} stampsRequired={card.stampsRequired} visitCount={card.visitCount} disabled={true}/>
-                ))
-                }
-                </Col>
-            </Row>
-        </Container>
+            <h1>{currentCardHeader}</h1>
+            <Container fluid >
+                <Row>
+                    <Col lg={6}>
+                    {data.me.currentCards.map((card, index)=>(
+                        <CoffeeCard key={index} businessId={card.businessId} businessName={card.businessName} stampsRequired={card.stampsRequired} visitCount={card.visitCount} disabled={true}/>
+                    ))
+                    }
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 
