@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Auth from '../../utils/auth';
 
 function CompletedCards() {
+    
     const { loading, error, data} = useQuery(GET_ME);
 
     if (loading) {
@@ -35,7 +36,7 @@ function CompletedCards() {
         <h1>{completedCardHeader}</h1>
         <Container fluid>
             <Row>
-                <Col>
+                <Col lg={6}>
                 {data.me.completedCards.map((card, index)=>(
                     <CoffeeCard key={index} businessId={card.businessId} businessName={card.businessName} stampsRequired={card.stampsRequired} visitCount={card.visitCount} disabled={false}/>
                 ))

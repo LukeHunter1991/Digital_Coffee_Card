@@ -63,19 +63,19 @@ export default function CoffeeCard(props) {
     
     return (
     <Card   className={isShaking ? 'shake' : ''}>
-        <Card.Body>
-            <Card.Title>{props.businessName}</Card.Title>
-            <Container>
+        <Card.Title className="display-3 justify-content-center">{props.businessName}</Card.Title>
+        <Card.Body className="d-flex justify-content-center">
+            <Container >
                 <Row>
                     { visits.map((stamp, index) => {
                         return(
-                        <Col key={index}>{stamp}</Col>
+                        <Col key={index} className='icon'>{stamp}</Col>
                         )
                     })
                     }
                     { stampsNeeded.map((stamp, index) => {
                         return(
-                        <Col key={index}>{stamp}</Col>
+                        <Col key={index} className='icon'>{stamp}</Col>
                         )
                     })
                     }
