@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Deployed URL - https://digital-coffee-card.onrender.com/
+
 ## Description
 
 In this project I built a digital coffee card. This allows a business to create a digital card and generates a QR code. A customer can then scan that QR code to stamp their digital coffee card. Once the card has been fully stamped it will move to their completed cards page and can be redeemed at a suitable provider. I did this to gain a deeper understanding of the MERN stack tools and workflow.
